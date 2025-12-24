@@ -1,350 +1,267 @@
 <!doctype html>
 <html lang="th" class="h-full">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRA Job Fair & Education 2026 - Registration</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* CSS ทั้งหมดของคุณถูกคงไว้ 100% */
-    body { box-sizing: border-box; font-family: 'Sarabun', 'Tahoma', 'Arial', sans-serif; }
-    * { font-family: 'Sarabun', 'Tahoma', 'Arial', sans-serif !important; }
-    .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); }
-    .option-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; border: 2px solid transparent; background: white; position: relative; overflow: hidden; }
-    .option-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15); }
-    .option-card.selected { border-color: #8b5cf6; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%); box-shadow: 0 12px 32px rgba(139, 92, 246, 0.25); transform: translateY(-4px); }
-    .check-indicator { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .option-card.selected .check-indicator { opacity: 1; transform: scale(1); }
-    .btn-primary { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); transition: all 0.3s ease; position: relative; overflow: hidden; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(139, 92, 246, 0.35); }
-    .progress-container { position: relative; display: flex; justify-content: space-between; align-items: center; max-width: 450px; margin: 0 auto; }
-    .progress-line { position: absolute; top: 50%; left: 0; right: 0; height: 3px; background: #e5e7eb; transform: translateY(-50%); z-index: 0; }
-    .progress-line-fill { height: 100%; background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%); transition: width 0.5s; width: 0%; }
-    .progress-step { width: 50px; height: 50px; border-radius: 50%; background: white; border: 3px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-weight: 600; position: relative; z-index: 1; transition: all 0.4s; }
-    .progress-step.active { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: white; border-color: #8b5cf6; transform: scale(1.15); }
-    .input-field { border: 2px solid #e5e7eb; }
-    .input-field:focus { border-color: #8b5cf6; outline: none; }
-    .fade-in { animation: fadeIn 0.6s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .spinner { border: 3px solid rgba(255, 255, 255, 0.3); border-top: 3px solid white; border-radius: 50%; width: 20px; height: 20px; animation: spin 0.8s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .hidden { display: none; }
-    .toast-message { position: fixed; top: 24px; right: 24px; padding: 16px 24px; border-radius: 12px; z-index: 1000; display: flex; align-items: center; gap: 12px; animation: slideInRight 0.3s ease; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRA Job Fair & Education 2026 - Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS เดิมของคุณอาจารย์คงไว้ให้ครบถ้วน */
+        body { box-sizing: border-box; font-family: 'Sarabun', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); }
+        .option-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; border: 2px solid transparent; background: white; position: relative; }
+        .option-card.selected { border-color: #8b5cf6; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%); transform: translateY(-4px); }
+        .check-indicator { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0); transition: all 0.3s; }
+        .option-card.selected .check-indicator { opacity: 1; transform: scale(1); }
+        .btn-primary { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); transition: all 0.3s; }
+        .progress-container { position: relative; display: flex; justify-content: space-between; align-items: center; max-width: 450px; margin: 0 auto; }
+        .progress-line { position: absolute; top: 50%; left: 0; right: 0; height: 3px; background: #e5e7eb; transform: translateY(-50%); z-index: 0; }
+        .progress-line-fill { height: 100%; background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%); transition: width 0.5s; width: 0%; }
+        .progress-step { width: 50px; height: 50px; border-radius: 50%; background: white; border: 3px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-weight: 600; position: relative; z-index: 1; }
+        .progress-step.active { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: white; border-color: #8b5cf6; transform: scale(1.15); }
+        .progress-step.completed { background: #6366f1; color: white; border-color: #6366f1; }
+        .input-field { border: 2px solid #e5e7eb; transition: 0.3s; }
+        .input-field:focus { border-color: #8b5cf6; outline: none; }
+        .spinner { border: 3px solid rgba(255,255,255,.3); border-top: 3px solid white; border-radius: 50%; width: 20px; height: 20px; animation: spin .8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hidden { display: none; }
+    </style>
 </head>
 <body class="h-full">
-  <main class="h-full w-full overflow-auto" id="mainContainer" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
-    <div class="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      
-      <header class="text-center mb-12 fade-in">
-        <div class="inline-block mb-6">
-          <div class="w-20 h-20 mx-auto rounded-full bg-white shadow-2xl flex items-center justify-center mb-4">
-            <svg class="w-12 h-12 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-          </div>
-        </div>
-        <h1 class="text-4xl sm:text-5xl font-bold my-4 text-yellow-400">CRA Job Fair & Education 2026</h1>
-        <div class="text-white">
-          <p class="text-2xl font-bold">วันที่ 12-13 กุมภาพันธ์ 2569</p>
-          <p class="text-xl">แบบฟอร์มลงทะเบียนผู้ประกอบการออกบูธ</p>
-        </div>
-      </header>
+    <main class="h-full w-full overflow-auto py-12" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+        <div class="max-w-5xl mx-auto px-4">
+            <header class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl font-bold text-yellow-400 mb-4">CRA Job Fair & Education 2026</h1>
+                <p class="text-white text-xl">แบบฟอร์มลงทะเบียนผู้ประกอบการออกบูธ</p>
+            </header>
 
-      <div id="progressBar" class="mb-12 fade-in hidden">
-        <div class="progress-container">
-          <div class="progress-line"><div id="progressLineFill" class="progress-line-fill"></div></div>
-          <div class="progress-step" data-step="1">1</div>
-          <div class="progress-step" data-step="2">2</div>
-          <div class="progress-step" data-step="3">3</div>
-        </div>
-      </div>
-
-      <div class="glass-card rounded-3xl p-8 sm:p-12 fade-in">
-        <form id="registrationForm">
-          <section id="section1" class="section-content">
-            <div class="section-header"><h2 class="text-2xl font-bold text-gray-800">ความประสงค์เข้าร่วมงาน</h2></div>
-            <div class="mb-10">
-              <label class="block text-lg font-semibold mb-6 text-gray-700">หน่วยงานของท่านประสงค์เข้าร่วมงานหรือไม่ *</label>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div class="option-card rounded-2xl p-6" data-interest="yes">
-                  <div class="check-indicator">✓</div>
-                  <span class="font-semibold text-gray-800">ต้องการเข้าร่วมออกบูธ</span>
+            <div id="progressBar" class="mb-12 hidden">
+                <div class="progress-container">
+                    <div class="progress-line"><div id="progressLineFill" class="progress-line-fill"></div></div>
+                    <div class="progress-step" data-step="1">1</div>
+                    <div class="progress-step" data-step="2">2</div>
+                    <div class="progress-step" data-step="3">3</div>
                 </div>
-                <div class="option-card rounded-2xl p-6" data-interest="no">
-                  <div class="check-indicator">✓</div>
-                  <span class="font-semibold text-gray-800">ยังไม่สะดวกเข้าร่วม</span>
-                </div>
-              </div>
             </div>
 
-            <div id="declineSection" class="hidden mb-10"><div class="warning-box">
-              <label class="block font-semibold mb-3">ชื่อบริษัท *</label>
-              <input type="text" id="declineCompanyName" class="input-field w-full px-5 py-4 rounded-xl mb-4">
-              <label class="block font-semibold mb-3">เหตุผล</label>
-              <textarea id="declineReason" class="input-field w-full px-5 py-4 rounded-xl mb-6"></textarea>
-              <button type="button" id="submitDecline" class="btn-primary w-full text-white py-4 rounded-xl flex items-center justify-center">
-                <span id="submitDeclineText">ส่งข้อมูล</span>
-                <span id="submitDeclineSpinner" class="spinner ml-3 hidden"></span>
-              </button>
-            </div></div>
+            <div class="glass-card rounded-3xl p-8 sm:p-12">
+                <form id="registrationForm">
+                    <section id="section1" class="section-content">
+                        <h2 class="text-2xl font-bold mb-8">1. ความประสงค์เข้าร่วมงาน</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                            <div class="option-card rounded-2xl p-6" data-interest="yes">
+                                <div class="check-indicator">✓</div>
+                                <span class="font-semibold text-gray-800">ต้องการเข้าร่วมออกบูธ</span>
+                            </div>
+                            <div class="option-card rounded-2xl p-6" data-interest="no">
+                                <div class="check-indicator">✓</div>
+                                <span class="font-semibold text-gray-800">ยังไม่สะดวกเข้าร่วม</span>
+                            </div>
+                        </div>
 
-            <div id="participationTypeSection" class="hidden">
-              <h3 class="font-bold mb-6">ประเภทการเข้าร่วม *</h3>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div class="option-card rounded-2xl p-6" data-type="new">บริษัทใหม่</div>
-                <div class="option-card rounded-2xl p-6" data-type="returning">บริษัทเดิม</div>
-                <div class="option-card rounded-2xl p-6" data-type="education">การศึกษา/สนับสนุน</div>
-              </div>
-              <div id="dynamicFields">
-                 <div id="newCompanyFields" class="hidden mb-6">
-                    <input type="text" id="newCompanyName" class="input-field w-full px-5 py-4 rounded-xl" placeholder="ชื่อบริษัท *">
-                    <select id="newOrgType" class="input-field w-full px-5 py-4 rounded-xl mt-4 bg-white">
-                      <option value="">-- เลือกประเภทองค์กร --</option>
-                      <option value="โรงพยาบาล (ภาครัฐและเอกชน)">โรงพยาบาล (ภาครัฐและเอกชน)</option>
-                      <option value="องค์กรด้านการแพทย์และสุขภาพ">องค์กรด้านการแพทย์และสุขภาพ</option>
-                      <option value="อุตสาหกรรมอาหารและยา">อุตสาหกรรมอาหารและยา</option>
-                    </select>
-                    <div id="newCompanyDateSection" class="mt-4">
-                      <p class="font-semibold mb-2">เลือกวันที่เข้าร่วม *</p>
-                      <div class="space-y-2">
-                        <div class="date-option-card border-2 p-3 rounded-lg" data-new-date="12 กุมภาพันธ์ 2568">12 ก.พ. 68</div>
-                        <div class="date-option-card border-2 p-3 rounded-lg" data-new-date="13 กุมภาพันธ์ 2568">13 ก.พ. 68</div>
-                      </div>
-                    </div>
-                 </div>
+                        <div id="declineSection" class="hidden">
+                            <input type="text" id="declineCompanyName" class="input-field w-full p-4 rounded-xl mb-4" placeholder="ชื่อบริษัท *">
+                            <textarea id="declineReason" class="input-field w-full p-4 rounded-xl mb-6" placeholder="เหตุผลที่ไม่สะดวก"></textarea>
+                            <button type="button" onclick="submitToAPI('decline')" class="btn-primary w-full text-white py-4 rounded-xl font-bold flex items-center justify-center">
+                                <span>ส่งข้อมูล</span>
+                                <div id="declineSpinner" class="spinner ml-3 hidden"></div>
+                            </button>
+                        </div>
 
-                 <div id="returningCompanyFields" class="hidden">
-                   <select id="returningCompany" class="input-field w-full px-5 py-4 rounded-xl bg-white">
-                     <option value="">-- เลือกบริษัทเดิม --</option>
-                     <option value="โรงพยาบาลจุฬาภรณ์" data-date="12-13 กุมภาพันธ์ 2568" data-type="ราชวิทยาลัยจุฬาภรณ์">โรงพยาบาลจุฬาภรณ์</option>
-                     <option value="บริษัท จัดหางาน จ๊อบไทย จำกัด" data-date="12-13 กุมภาพันธ์ 2568" data-type="ผู้สนับสนุน">บริษัท จัดหางาน จ๊อบไทย จำกัด</option>
-                   </select>
-                 </div>
+                        <div id="participationArea" class="hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                                <div class="option-card p-4 rounded-xl text-center" data-type="new">บริษัทใหม่</div>
+                                <div class="option-card p-4 rounded-xl text-center" data-type="returning">บริษัทเดิม</div>
+                                <div class="option-card p-4 rounded-xl text-center" data-type="education">การศึกษา/สนับสนุน</div>
+                            </div>
+                            <div id="dynamicFields" class="space-y-4">
+                                </div>
+                            <div class="flex justify-end mt-8">
+                                <button type="button" id="btnNext1" onclick="showSection(2)" class="btn-primary text-white px-10 py-4 rounded-xl font-bold">ถัดไป</button>
+                            </div>
+                        </div>
+                    </section>
 
-                 <div id="educationFields" class="hidden">
-                   <input type="text" id="educationName" class="input-field w-full px-5 py-4 rounded-xl" placeholder="ชื่อหน่วยงานการศึกษา *">
-                   <select id="educationOrgType" class="input-field w-full px-5 py-4 rounded-xl mt-4 bg-white">
-                     <option value="สถาบันการศึกษา/การศึกษาต่อ">สถาบันการศึกษา/การศึกษาต่อ</option>
-                     <option value="ที่ปรึกษาเรียนต่อและทำงานต่างประเทศ">ที่ปรึกษาเรียนต่อและทำงานต่างประเทศ</option>
-                   </select>
-                 </div>
-              </div>
+                    <section id="section2" class="section-content hidden">
+                        <h2 class="text-2xl font-bold mb-8">2. ข้อมูลผู้ประสานงาน</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <select id="titlePrefix" class="input-field p-4 rounded-xl bg-white"><option value="นาย">นาย</option><option value="นาง">นาง</option><option value="นางสาว">นางสาว</option></select>
+                            <input type="text" id="firstName" class="input-field p-4 rounded-xl" placeholder="ชื่อ *">
+                            <input type="text" id="lastName" class="input-field p-4 rounded-xl" placeholder="นามสกุล *">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" id="position" class="input-field p-4 rounded-xl" placeholder="ตำแหน่ง *">
+                            <input type="text" id="lineId" class="input-field p-4 rounded-xl" placeholder="Line ID *">
+                        </div>
+                        <input type="email" id="email" class="input-field w-full p-4 rounded-xl mb-4" placeholder="อีเมล *">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="tel" id="phone" class="input-field p-4 rounded-xl" placeholder="เบอร์โทร *">
+                            <input type="text" id="phoneExt" class="input-field p-4 rounded-xl" placeholder="ต่อ">
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button type="button" onclick="showSection(1)" class="text-gray-500 font-bold">ย้อนกลับ</button>
+                            <button type="button" onclick="showSection(3)" class="btn-primary text-white px-10 py-4 rounded-xl font-bold">ถัดไป</button>
+                        </div>
+                    </section>
+
+                    <section id="section3" class="section-content hidden">
+                        <h2 class="text-2xl font-bold mb-8">3. รายละเอียดบูธ</h2>
+                        <div class="mb-6">
+                            <label class="block mb-2 font-bold">จำนวนเจ้าหน้าประจำบูธ (1-5 คน) *</label>
+                            <input type="number" id="boothStaffCount" min="1" max="5" value="1" class="input-field w-full p-4 rounded-xl">
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <label class="flex items-center gap-3"><input type="checkbox" id="requestLargerBooth"> ขอพื้นที่บูธเพิ่ม</label>
+                            <label class="flex items-center gap-3"><input type="checkbox" id="requestOther"> อื่นๆ</label>
+                            <textarea id="requestOtherDetail" class="input-field w-full p-4 rounded-xl hidden" placeholder="ระบุรายละเอียด..."></textarea>
+                        </div>
+                        <div class="mb-8 p-6 bg-purple-50 rounded-xl">
+                            <p class="font-bold mb-4">นำเสนอบนเวที 3 นาทีหรือไม่ *</p>
+                            <div class="flex gap-4">
+                                <div class="option-card p-4 rounded-lg flex-1 text-center" data-presentation="yes">ประสงค์</div>
+                                <div class="option-card p-4 rounded-lg flex-1 text-center" data-presentation="no">ไม่ประสงค์</div>
+                            </div>
+                        </div>
+                        <label class="flex items-start gap-3 mb-8"><input type="checkbox" id="consent" required> ยินยอมให้ใช้ข้อมูลเพื่อการจัดงาน *</label>
+                        <div class="flex justify-between">
+                            <button type="button" onclick="showSection(2)" class="text-gray-500 font-bold">ย้อนกลับ</button>
+                            <button type="button" onclick="submitToAPI('full')" class="btn-primary text-white px-10 py-4 rounded-xl font-bold flex items-center">
+                                <span>ส่งข้อมูลลงทะเบียน</span>
+                                <div id="submitSpinner" class="spinner ml-3 hidden"></div>
+                            </button>
+                        </div>
+                    </section>
+                </form>
             </div>
+
+            <div id="thankYouMessage" class="hidden glass-card rounded-3xl p-12 text-center shadow-2xl">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">ลงทะเบียนสำเร็จ!</h2>
+                <p class="text-gray-600 mb-8">ขอบคุณสำหรับข้อมูล ทีมงานจะติดต่อกลับโดยเร็วที่สุด</p>
+                <button onclick="location.reload()" class="btn-primary text-white px-10 py-4 rounded-xl font-bold">กลับหน้าแรก</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- 1. การตั้งค่า URL (Web App URL จาก Google Script) ---
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzM5PdjRQCaOYf4adLiwZtnzL_doZV-iFkhPEU30fyflOXLw__uuzZLrHb_QlbBM1PH/exec";
+
+        let formData = { booth_staff_count: 1 };
+        let currentStep = 1;
+
+        // --- 2. ฟังก์ชัน UI Logic ---
+        document.querySelectorAll('[data-interest]').forEach(el => {
+            el.onclick = () => {
+                document.querySelectorAll('[data-interest]').forEach(x => x.classList.remove('selected'));
+                el.classList.add('selected');
+                formData.participation_interest = el.dataset.interest;
+                const isYes = el.dataset.interest === 'yes';
+                document.getElementById('participationArea').classList.toggle('hidden', !isYes);
+                document.getElementById('declineSection').classList.toggle('hidden', isYes);
+                document.getElementById('progressBar').classList.toggle('hidden', !isYes);
+            };
+        });
+
+        document.querySelectorAll('[data-type]').forEach(el => {
+            el.onclick = () => {
+                document.querySelectorAll('[data-type]').forEach(x => x.classList.remove('selected'));
+                el.classList.add('selected');
+                formData.participation_type = el.dataset.type;
+                updateDynamicFields(el.dataset.type);
+            };
+        });
+
+        function updateDynamicFields(type) {
+            const div = document.getElementById('dynamicFields');
+            if (type === 'returning') {
+                div.innerHTML = `<select id="returningCompany" class="input-field w-full p-4 rounded-xl bg-white">
+                    <option value="">-- เลือกบริษัทเดิม --</option>
+                    <option value="โรงพยาบาลจุฬาภรณ์">โรงพยาบาลจุฬาภรณ์</option>
+                </select>`;
+            } else {
+                div.innerHTML = `<input type="text" id="companyName" class="input-field w-full p-4 rounded-xl" placeholder="ชื่อบริษัท/หน่วยงาน *">
+                <input type="text" id="eventDate" class="input-field w-full p-4 rounded-xl mt-4" placeholder="วันที่เข้าร่วม (เช่น 12 ก.พ.)">`;
+            }
+        }
+
+        function showSection(n) {
+            document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`section${n}`).classList.remove('hidden');
+            currentStep = n;
+            document.getElementById('progressLineFill').style.width = `${(n-1)*50}%`;
+            document.querySelectorAll('.progress-step').forEach(s => {
+                const sNum = parseInt(s.dataset.step);
+                s.classList.toggle('active', sNum === n);
+                s.classList.toggle('completed', sNum < n);
+            });
+            window.scrollTo(0, 0);
+        }
+
+        document.getElementById('requestOther').onchange = (e) => {
+            document.getElementById('requestOtherDetail').classList.toggle('hidden', !e.target.checked);
+        };
+
+        document.querySelectorAll('[data-presentation]').forEach(el => {
+            el.onclick = () => {
+                document.querySelectorAll('[data-presentation]').forEach(x => x.classList.remove('selected'));
+                el.classList.add('selected');
+                formData.interested_in_presentation = el.dataset.presentation === 'yes';
+            };
+        });
+
+        // --- 3. ฟังก์ชันส่งข้อมูล (The Bridge) ---
+        async function submitToAPI(mode) {
+            const spinner = mode === 'decline' ? document.getElementById('declineSpinner') : document.getElementById('submitSpinner');
+            const btn = event.target.closest('button');
             
-            <div class="flex justify-end mt-8"><button type="button" id="nextToSection2" class="btn-primary text-white py-4 px-10 rounded-xl hidden">ถัดไป</button></div>
-          </section>
+            // รวบรวมข้อมูลเพิ่มเติม
+            if (mode === 'decline') {
+                formData.company_name = document.getElementById('declineCompanyName').value;
+                formData.decline_reason = document.getElementById('declineReason').value;
+            } else {
+                // รวบรวมข้อมูลจากฟอร์ม
+                formData.company_name = document.getElementById('companyName')?.value || document.getElementById('returningCompany')?.value;
+                formData.title_prefix = document.getElementById('titlePrefix').value;
+                formData.first_name = document.getElementById('firstName').value;
+                formData.last_name = document.getElementById('lastName').value;
+                formData.position = document.getElementById('position').value;
+                formData.email = document.getElementById('email').value;
+                formData.phone = document.getElementById('phone').value;
+                formData.line_id = document.getElementById('lineId').value;
+                formData.booth_staff_count = document.getElementById('boothStaffCount').value;
+                formData.request_larger_booth = document.getElementById('requestLargerBooth').checked;
+                formData.request_other = document.getElementById('requestOther').checked;
+                formData.request_other_detail = document.getElementById('requestOtherDetail').value;
+                formData.consent = document.getElementById('consent').checked;
+            }
 
-          <section id="section2" class="section-content hidden">
-            <h2 class="text-2xl font-bold mb-8">ข้อมูลผู้ประสานงาน</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <select id="titlePrefix" class="input-field p-4 rounded-xl bg-white"><option value="นาย">นาย</option><option value="นาง">นาง</option><option value="นางสาว">นางสาว</option></select>
-              <input type="text" id="firstName" class="input-field p-4 rounded-xl" placeholder="ชื่อ *">
-              <input type="text" id="lastName" class="input-field p-4 rounded-xl" placeholder="นามสกุล *">
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <input type="text" id="position" class="input-field p-4 rounded-xl" placeholder="ตำแหน่ง *">
-              <input type="text" id="lineId" class="input-field p-4 rounded-xl" placeholder="Line ID *">
-            </div>
-            <input type="email" id="email" class="input-field w-full p-4 rounded-xl mb-6" placeholder="อีเมล *">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <input type="tel" id="phone" class="input-field p-4 rounded-xl" placeholder="เบอร์โทร *">
-              <input type="text" id="phoneExt" class="input-field p-4 rounded-xl" placeholder="ต่อ">
-            </div>
-            <div class="flex justify-between">
-              <button type="button" id="backToSection1" class="btn-secondary px-10 py-4 rounded-xl">ย้อนกลับ</button>
-              <button type="button" id="nextToSection3" class="btn-primary text-white px-10 py-4 rounded-xl">ถัดไป</button>
-            </div>
-          </section>
+            if(!formData.company_name) return alert("กรุณาระบุชื่อบริษัท");
 
-          <section id="section3" class="section-content hidden">
-            <h2 class="text-2xl font-bold mb-8">รายละเอียดบูธ</h2>
-            <div class="mb-8">
-              <label class="block font-semibold mb-2">จำนวนผู้มาออกบูธ (1-5 คน) *</label>
-              <input type="number" id="boothStaffCount" min="1" max="5" value="1" class="input-field w-full p-4 rounded-xl">
-            </div>
-            <div class="space-y-4 mb-8">
-              <label class="flex items-center gap-3"><input type="checkbox" id="requestLargerBooth" class="w-5 h-5"> ขอพื้นที่เพิ่ม</label>
-              <label class="flex items-center gap-3"><input type="checkbox" id="requestOther" class="w-5 h-5"> อื่นๆ</label>
-              <textarea id="requestOtherDetail" class="input-field w-full p-4 rounded-xl hidden" placeholder="ระบุรายละเอียด..."></textarea>
-            </div>
-            <div class="mb-8 p-6 bg-purple-50 rounded-xl">
-              <p class="font-bold mb-4">นำเสนอบนเวที 3 นาทีหรือไม่ *</p>
-              <div class="flex gap-6">
-                <div class="option-card p-4 rounded-lg flex-1 text-center" data-presentation="yes">ประสงค์</div>
-                <div class="option-card p-4 rounded-lg flex-1 text-center" data-presentation="no">ไม่ประสงค์</div>
-              </div>
-            </div>
-            <label class="flex items-start gap-3 mb-8"><input type="checkbox" id="consent" required class="mt-1"> ยินยอมให้ใช้ข้อมูลเพื่อการจัดงาน *</label>
-            <div class="flex justify-between">
-              <button type="button" id="backToSection2" class="btn-secondary px-10 py-4 rounded-xl">ย้อนกลับ</button>
-              <button type="submit" id="submitForm" class="btn-primary text-white px-10 py-4 rounded-xl flex items-center">
-                <span id="submitButtonText">ส่งแบบฟอร์มลงทะเบียน</span>
-                <span id="submitSpinner" class="spinner ml-3 hidden"></span>
-              </button>
-            </div>
-          </section>
-        </form>
-      </div>
+            btn.disabled = true;
+            spinner.classList.remove('hidden');
 
-      <div id="thankYouMessage" class="hidden glass-card rounded-3xl p-12 text-center fade-in">
-        <h2 class="text-3xl font-bold mb-4">ขอบคุณสำหรับการลงทะเบียน!</h2>
-        <p class="mb-8">ทีมงานได้รับข้อมูลของท่านเรียบร้อยแล้ว</p>
-        <button onclick="location.reload()" class="btn-primary text-white px-10 py-4 rounded-xl">กลับหน้าแรก</button>
-      </div>
-    </div>
-  </main>
+            try {
+                // ส่งข้อมูลไปยัง Google Apps Script
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
 
-  <script>
-    // --- Logic การทำงานส่วนใหญ่คงเดิมเพื่อรักษา UX/UI ---
-    let formData = { booth_staff_count: 1 };
-    let currentSection = 1;
+                // สำเร็จ
+                document.querySelector('.glass-card').classList.add('hidden');
+                document.getElementById('thankYouMessage').classList.remove('hidden');
+                window.scrollTo(0,0);
 
-    // การเลือกความประสงค์
-    document.querySelectorAll('[data-interest]').forEach(el => {
-      el.onclick = () => {
-        document.querySelectorAll('[data-interest]').forEach(x => x.classList.remove('selected'));
-        el.classList.add('selected');
-        formData.participation_interest = el.dataset.interest;
-        
-        const isYes = el.dataset.interest === 'yes';
-        document.getElementById('participationTypeSection').classList.toggle('hidden', !isYes);
-        document.getElementById('declineSection').classList.toggle('hidden', isYes);
-        document.getElementById('progressBar').classList.toggle('hidden', !isYes);
-        document.getElementById('nextToSection2').classList.toggle('hidden', !isYes);
-      };
-    });
-
-    // การเลือกประเภทบริษัท (Logic เดิม)
-    document.querySelectorAll('[data-type]').forEach(el => {
-      el.onclick = () => {
-        document.querySelectorAll('[data-type]').forEach(x => x.classList.remove('selected'));
-        el.classList.add('selected');
-        formData.participation_type = el.dataset.type;
-        document.getElementById('newCompanyFields').classList.toggle('hidden', el.dataset.type !== 'new');
-        document.getElementById('returningCompanyFields').classList.toggle('hidden', el.dataset.type !== 'returning');
-        document.getElementById('educationFields').classList.toggle('hidden', el.dataset.type !== 'education');
-      };
-    });
-
-    // วันที่ (New Company)
-    document.querySelectorAll('[data-new-date]').forEach(el => {
-      el.onclick = () => {
-        document.querySelectorAll('[data-new-date]').forEach(x => x.classList.remove('selected', 'bg-purple-100', 'border-purple-600'));
-        el.classList.add('selected', 'bg-purple-100', 'border-purple-600');
-        formData.event_date = el.dataset.newDate;
-      };
-    });
-
-    // ฟังก์ชันเปลี่ยนหน้า (Logic เดิม)
-    function showSection(n) {
-      document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
-      document.getElementById(`section${n}`).classList.remove('hidden');
-      currentSection = n;
-      updateProgress(n);
-    }
-
-    function updateProgress(n) {
-      document.querySelectorAll('.progress-step').forEach(s => {
-        const step = parseInt(s.dataset.step);
-        s.classList.toggle('active', step === n);
-        s.classList.toggle('completed', step < n);
-      });
-      document.getElementById('progressLineFill').style.width = `${(n-1)*50}%`;
-    }
-
-    document.getElementById('nextToSection2').onclick = () => showSection(2);
-    document.getElementById('nextToSection3').onclick = () => showSection(3);
-    document.getElementById('backToSection1').onclick = () => showSection(1);
-    document.getElementById('backToSection2').onclick = () => showSection(2);
-
-    // อื่นๆ (Checkbox)
-    document.getElementById('requestOther').onchange = (e) => {
-      document.getElementById('requestOtherDetail').classList.toggle('hidden', !e.target.checked);
-    };
-
-    // นำเสนอ 3 นาที
-    document.querySelectorAll('[data-presentation]').forEach(el => {
-      el.onclick = () => {
-        document.querySelectorAll('[data-presentation]').forEach(x => x.classList.remove('selected', 'bg-purple-100', 'border-purple-600'));
-        el.classList.add('selected', 'bg-purple-100', 'border-purple-600');
-        formData.interested_in_presentation = el.dataset.presentation === 'yes';
-      };
-    });
-
-    // --- จุดปรับเปลี่ยนสำคัญ: ส่งข้อมูลไปยัง Apps Script ---
-    
-    // 1. กรณีไม่เข้าร่วม
-    document.getElementById('submitDecline').onclick = async () => {
-      const btn = document.getElementById('submitDecline');
-      const company = document.getElementById('declineCompanyName').value;
-      if(!company) return alert('กรุณากรอกชื่อบริษัท');
-      
-      btn.disabled = true;
-      document.getElementById('submitDeclineSpinner').classList.remove('hidden');
-      
-      const payload = {
-        participation_interest: 'no',
-        company_name: company,
-        decline_reason: document.getElementById('declineReason').value
-      };
-
-      google.script.run.withSuccessHandler(() => {
-        showThankYou();
-      }).submitDataToSheet(payload);
-    };
-
-    // 2. กรณีเข้าร่วม (ส่งฟอร์มทั้งหมด)
-    document.getElementById('registrationForm').onsubmit = (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submitForm');
-      btn.disabled = true;
-      document.getElementById('submitSpinner').classList.remove('hidden');
-
-      // รวบรวมข้อมูลตามประเภทที่เลือก
-      if(formData.participation_type === 'new') {
-        formData.company_name = document.getElementById('newCompanyName').value;
-        formData.organization_type = document.getElementById('newOrgType').value;
-      } else if(formData.participation_type === 'returning') {
-        const sel = document.getElementById('returningCompany');
-        const opt = sel.options[sel.selectedIndex];
-        formData.existing_company = sel.value;
-        formData.company_name = sel.value;
-        formData.event_date = opt.dataset.date;
-        formData.organization_type = opt.dataset.type;
-      } else {
-        formData.company_name = document.getElementById('educationName').value;
-        formData.organization_type = document.getElementById('educationOrgType').value;
-        formData.event_date = "12-13 กุมภาพันธ์ 2568";
-      }
-
-      // ข้อมูลติดต่อ
-      formData.title_prefix = document.getElementById('titlePrefix').value;
-      formData.first_name = document.getElementById('firstName').value;
-      formData.last_name = document.getElementById('lastName').value;
-      formData.position = document.getElementById('position').value;
-      formData.line_id = document.getElementById('lineId').value;
-      formData.email = document.getElementById('email').value;
-      formData.phone = document.getElementById('phone').value;
-      formData.phone_ext = document.getElementById('phoneExt').value;
-      
-      // บูธ
-      formData.booth_staff_count = document.getElementById('boothStaffCount').value;
-      formData.request_larger_booth = document.getElementById('requestLargerBooth').checked;
-      formData.request_other = document.getElementById('requestOther').checked;
-      formData.request_other_detail = document.getElementById('requestOtherDetail').value;
-      formData.consent = document.getElementById('consent').checked;
-
-      google.script.run.withSuccessHandler((res) => {
-        showThankYou();
-      }).submitDataToSheet(formData);
-    };
-
-    function showThankYou() {
-      document.querySelector('.glass-card').classList.add('hidden');
-      document.getElementById('progressBar').classList.add('hidden');
-      document.getElementById('thankYouMessage').classList.remove('hidden');
-      window.scrollTo(0, 0);
-    }
-  </script>
+            } catch (error) {
+                alert("เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่");
+                btn.disabled = false;
+                spinner.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
