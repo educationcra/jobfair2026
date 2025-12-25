@@ -38,6 +38,14 @@
     .loader { border: 4px solid #f3f3f3; border-top: 4px solid #0F2C67; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .btn-school-item { transition: all 0.2s; min-height: 54px; }
+
+    /* --- เพิ่ม CSS ตรงนี้เพื่อแก้ปัญหาตารางแยก --- */
+    @media only screen and (max-width: 768px), print {
+      #source-split-grid { gap: 0 !important; }
+      #source-split-grid > div:nth-child(2) > div:first-child { display: none !important; } /* ซ่อนหัวตารางก้อนที่ 2 */
+      #source-split-grid > div:nth-child(1) > div:last-child { border-bottom: none !important; } /* ลบเส้นคั่นรอยต่อ */
+      #source-split-grid > div:nth-child(2) > div:nth-child(2) { border-top: none !important; margin-top: -1px; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
@@ -181,7 +189,6 @@
 
     let RAW_DATA = [], selectedSchools = [], allSchools = [];
 
-    // เปลี่ยนจุดนี้: ใช้ fetch แทน google.script.run
     window.onload = async () => {
       try {
         if(GAS_API_URL.includes("ไอดีสคริปต์ของคุณ")) {
@@ -213,7 +220,6 @@
       }
     };
 
-    // --- ส่วน Logic ด้านล่างเหมือนเดิมทุกประการ ---
     function preciseRound(number, decimals = 1) {
       const multiplier = Math.pow(10, decimals);
       const n = number * multiplier;
@@ -350,7 +356,10 @@
 
     function renderTableHTML(data, total, header) { return `<table class="w-full text-sm"><thead class="bg-gray-50 font-bold uppercase text-gray-600"><tr><th class="p-2 text-left">${header}</th><th class="p-2 text-right">จำนวน</th><th class="p-2 text-right">ร้อยละ</th></tr></thead><tbody>${data.map(i => `<tr class="border-b"><td class="p-2 text-slate-700 font-medium">${i[0]}</td><td class="p-2 text-right font-bold text-cra-primary">${i[1]}</td><td class="p-2 text-right font-semibold text-gray-500">${preciseRound(i[1]*100/total, 1).toFixed(1)}</td></tr>`).join('')}</tbody></table>`; }
     function renderSimpleTable(id, data, total, header) { document.getElementById(id).innerHTML = `<table class="w-full text-sm border"><thead class="bg-gray-100 font-bold uppercase text-gray-600"><tr><th class="p-2 text-left border-b">${header}</th><th class="p-2 text-right border-b">จำนวน</th><th class="p-2 text-right border-b">ร้อยละ</th></tr></thead><tbody>${data.map(i => `<tr class="border-b hover:bg-slate-50 transition"><td class="p-2 text-slate-700 font-medium">${i[0]}</td><td class="p-2 text-right font-bold text-cra-primary">${i[1]}</td><td class="p-2 text-right font-semibold text-gray-500">${preciseRound(i[1]*100/total, 1).toFixed(1)}</td></tr>`).join('')}</tbody></table>`; }
-    function renderSplitTable(id, data, total) { const mid = Math.ceil(data.length/2), L=data.slice(0,mid), R=data.slice(mid), head=`<div class="flex justify-between bg-gray-100 p-2 font-bold text-[10px] uppercase text-gray-500 border-b font-sans"><span>ช่องทาง</span><div class="flex gap-4"><span>คน</span><span>ร้อยละ</span></div></div>`, row=(d)=>`<div class="flex justify-between py-1.5 border-b text-[12px] px-1 hover:bg-slate-50 font-sans"><span>${d[0]}</span><div class="flex gap-4 font-bold text-cra-primary"><span>${d[1]}</span><span class="text-gray-400 font-normal w-12 text-right">${preciseRound(d[1]*100/total, 1).toFixed(1)}</span></div></div>`; document.getElementById(id).innerHTML=`<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12"><div>${head}${L.map(row).join('')}</div><div>${head}${R.map(row).join('')}</div></div>`; }
+    
+    // แก้ไขฟังก์ชันนี้: เพิ่ม id="source-split-grid" ให้ div
+    function renderSplitTable(id, data, total) { const mid = Math.ceil(data.length/2), L=data.slice(0,mid), R=data.slice(mid), head=`<div class="flex justify-between bg-gray-100 p-2 font-bold text-[10px] uppercase text-gray-500 border-b font-sans"><span>ช่องทาง</span><div class="flex gap-4"><span>คน</span><span>ร้อยละ</span></div></div>`, row=(d)=>`<div class="flex justify-between py-1.5 border-b text-[12px] px-1 hover:bg-slate-50 font-sans"><span>${d[0]}</span><div class="flex gap-4 font-bold text-cra-primary"><span>${d[1]}</span><span class="text-gray-400 font-normal w-12 text-right">${preciseRound(d[1]*100/total, 1).toFixed(1)}</span></div></div>`; document.getElementById(id).innerHTML=`<div id="source-split-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-12"><div>${head}${L.map(row).join('')}</div><div>${head}${R.map(row).join('')}</div></div>`; }
+    
     function toggleV(id, m) { const isT=m==='table'; document.getElementById(`v${id}Table`).classList.toggle('hidden',!isT); document.getElementById(`v${id}Chart`).classList.toggle('hidden',isT); document.getElementById(`btn${id}Table`).className=isT?"p-1.5 rounded bg-white shadow text-cra-primary":"p-1.5 rounded text-gray-400 ml-1"; document.getElementById(`btn${id}Chart`).className=!isT?"p-1.5 rounded bg-white shadow text-cra-primary":"p-1.5 rounded text-gray-400 ml-1"; }
     function getCounts(data, idx, multi) { let c={}; data.forEach(r => { let v=multi?r[idx].toString().split(/,\s*/):[r[idx].toString().trim()]; v.forEach(x=>{if(x)c[x]=(c[x]||0)+1;}); }); return Object.entries(c).sort((a,b)=>b[1]-a[1]); }
     function renderChart(id, type, data, total) { new Chart(document.getElementById(id),{type:type,data:{labels:data.map(d=>d[0]),datasets:[{data:data.map(d=>d[1]),backgroundColor:['#0F2C67','#E65100','#3b82f6','#10b981','#f59e0b']}]},options:{maintainAspectRatio:false,plugins:{datalabels:{color:'#fff',font:{family:'"Noto Sans Thai"'},formatter:(v)=>`${v}\n(${preciseRound(v*100/total, 0).toFixed(0)}%)`},legend:{position:'right',labels:{font:{family:'"Noto Sans Thai"',size:9},boxWidth:10}}}}}); }
